@@ -8,6 +8,9 @@ public class MyRemoteApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MyRemoteApplication.class, args);
+
+
 	}
+
 
 }
