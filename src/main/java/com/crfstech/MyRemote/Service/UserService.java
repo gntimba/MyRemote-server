@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -28,7 +27,7 @@ public class UserService implements UserDetailsService {
     private BCryptPasswordEncoder bCryptEncoder;
 
     @Transactional
-    public UUID save(User user){
+    public String save(User user){
         user.setPassword(bCryptEncoder.encode(user.getPassword()));
         Set<ROLE> roles = new HashSet<>();
         roles.add(ROLE.APP);

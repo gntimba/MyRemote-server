@@ -29,7 +29,7 @@ public class UserController {
     public ResponseEntity<String> signup(@RequestBody User user){
         ResponseEntity<String> resp = null;
         try{
-            UUID id = service.save(user);
+            String id = service.save(user);
             resp = new ResponseEntity<String>(
                     "USer with  '"+id+"' created", HttpStatus.CREATED
             );

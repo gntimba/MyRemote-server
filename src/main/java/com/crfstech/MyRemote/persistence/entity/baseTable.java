@@ -3,9 +3,7 @@ package com.crfstech.MyRemote.persistence.entity;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.envers.Audited;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
@@ -13,18 +11,17 @@ import java.util.UUID;
 @Audited
 public class baseTable extends AuditModel implements Serializable {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator")
-    private UUID id;
+    @GenericGenerator(name = "generator", strategy = "guid", parameters = {})
+    @GeneratedValue(generator = "generator")
+    @Column(name = "APPLICATION_ID" , columnDefinition="uniqueidentifier")
+    private String id;
     private boolean active = true;
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
