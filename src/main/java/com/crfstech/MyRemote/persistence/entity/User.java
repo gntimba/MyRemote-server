@@ -17,18 +17,18 @@ import java.util.Set;
 @Data
 public class User extends baseTable implements Serializable {
 
-    private String firstName ;
+    private String firstName;
     private String lastName;
     private String picture;
     private Date dob;
     private String phoneNumber;
     private String password;
     private String email;
-    @ElementCollection(fetch= FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
-            name="roles",
-            joinColumns = @JoinColumn(name="user_id")
+            name = "roles",
+            joinColumns = @JoinColumn(name = "user_id")
     )
-    @Column(name="user_role")
+    @Column(name = "user_role")
     private Set<ROLE> roles;
 }

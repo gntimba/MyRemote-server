@@ -13,7 +13,7 @@ public class baseTable extends AuditModel implements Serializable {
     @Id
     @GenericGenerator(name = "generator", strategy = "guid", parameters = {})
     @GeneratedValue(generator = "generator")
-    @Column(name = "APPLICATION_ID" , columnDefinition="uniqueidentifier")
+    @Column(name = "id" , columnDefinition="uniqueidentifier")
     private String id;
     private boolean active = true;
 
