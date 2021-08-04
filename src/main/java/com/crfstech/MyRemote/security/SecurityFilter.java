@@ -30,19 +30,21 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         // Reading Token from Authorization Header
         String token = request.getHeader("Authorization");
-        String filter = token.replace("Bearer ", "");
-        if (filter != null) {
-            String username = util.getSubject(filter);
-            //if username is not null & Context Authentication must be null
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails user = userDetailsService.loadUserByUsername(username);
-                boolean isValid = util.isValidToken(filter, user.getUsername());
-                if (isValid) {
-                    UsernamePasswordAuthenticationToken authToken =
-                            new UsernamePasswordAuthenticationToken(username, user.getPassword(), user.getAuthorities());
-                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    SecurityContextHolder.getContext().setAuthentication(authToken);
+        if (token != null) {
+            String filter = token.substring(7);
+            if (filter != null) {
+                String username = util.getSubject(filter);
+                //if username is not null & Context Authentication must be null
+                if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                    UserDetails user = userDetailsService.loadUserByUsername(username);
+                    boolean isValid = util.isValidToken(filter, user.getUsername());
+                    if (isValid) {
+                        UsernamePasswordAuthenticationToken authToken =
+                                new UsernamePasswordAuthenticationToken(username, user.getPassword(), user.getAuthorities());
+                        authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                        SecurityContextHolder.getContext().setAuthentication(authToken);
 
+                    }
                 }
             }
         }

@@ -25,46 +25,48 @@ public class UserController {
     private JWTUtil util;
     @Autowired
     private AuthenticationManager authenticationManager;
+
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody User user){
+    public ResponseEntity<String> signup(@RequestBody User user) {
         ResponseEntity<String> resp = null;
-        try{
+        try {
             String id = service.save(user);
             resp = new ResponseEntity<String>(
-                    "USer with  '"+id+"' created", HttpStatus.CREATED
+                    "USer with  '" + id + "' created", HttpStatus.CREATED
             );
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             resp = new ResponseEntity<String>(
                     "Unable to save Invoice",
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return  resp;
+        return resp;
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<?> getOneInvoice(@PathVariable String id){
-        ResponseEntity<?> resp= null;
+    public ResponseEntity<?> getUser(@PathVariable String id) {
+        ResponseEntity<?> resp = null;
         try {
-            Optional<User> user= service.findByemail(id);
-            resp= new ResponseEntity<Optional<User>>(user,HttpStatus.OK);
-        }catch (NotFoundException nfe) {
+            Optional<User> user = service.findById(id);
+            resp = new ResponseEntity<Optional<User>>(user, HttpStatus.OK);
+        } catch (NotFoundException nfe) {
             throw nfe;
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             resp = new ResponseEntity<String>(
                     "Unable to find User",
-                    HttpStatus.INTERNAL_SERVER_ERROR);
+                    HttpStatus.NOT_FOUND);
         }
         return resp;
     }
+
     @PostMapping("/login")
-    public ResponseEntity<UserResponse> login(@RequestBody UserRequest request){
+    public ResponseEntity<UserResponse> login(@RequestBody UserRequest request) {
 
         //Validate username/password with DB(required in case of Stateless Authentication)
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 request.getUsername(), request.getPassword()));
-        String token =util.generateToken(request.getUsername());
-        return ResponseEntity.ok(new UserResponse(token,"Token generated successfully!"));
+        String token = util.generateToken(request.getUsername());
+        return ResponseEntity.ok(new UserResponse(token, "Token generated successfully!"));
     }
 }

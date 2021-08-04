@@ -36,9 +36,13 @@ public class UserService implements UserDetailsService {
        return usersDao.save(user).getId();
     }
 
-//   // public Optional<User> findById(UUID id){
-//       return usersDao.findById(id);
-//    }
+    public Optional<User> findById(String id){
+        Optional<User> Opuser=  usersDao.findById(id);
+        if(Opuser.isPresent()){
+            Opuser.get().setPassword(null);
+        }
+        return Opuser;
+    }
     public Optional<User> findByemail(String email){
       Optional<User> Opuser=  usersDao.findByEmail(email);
       if(Opuser.isPresent()){

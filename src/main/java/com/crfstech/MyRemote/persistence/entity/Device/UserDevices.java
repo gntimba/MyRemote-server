@@ -9,18 +9,22 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "users_devices")
 @Data
-public class userDevices extends baseTable implements Serializable {
+public class UserDevices implements Serializable {
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @EmbeddedId
+    compositeKey id;
+
+    @ManyToOne
+    @MapsId("userID")
+    @JoinColumn(name = "user_id", columnDefinition = "uniqueidentifier")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "devices_id")
+    @ManyToOne
+    @MapsId("deviceID")
+    @JoinColumn(name = "devices_id", columnDefinition = "uniqueidentifier")
     private Device device;
 
     private String phone;
