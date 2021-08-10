@@ -1,5 +1,6 @@
 package com.crfstech.MyRemote.Controller;
 
+import com.crfstech.MyRemote.DTO.DeviceUserDTO;
 import com.crfstech.MyRemote.Exception.NotFoundException;
 import com.crfstech.MyRemote.Service.DeviceService;
 import com.crfstech.MyRemote.persistence.entity.Device.Device;
@@ -41,7 +42,7 @@ public class DeviceController {
         return resp;
     }
 
-    @GetMapping ("/find/{id}")
+    @GetMapping("/find/{id}")
     public ResponseEntity<?> addDevice(@PathVariable String id) {
         ResponseEntity<?> resp = null;
         try {
@@ -58,7 +59,7 @@ public class DeviceController {
         return resp;
     }
 
-    @PostMapping ("/assign")
+    @PostMapping("/assign")
     public ResponseEntity<?> Assign(@RequestBody UserDevices d) {
         ResponseEntity<?> resp = null;
         try {
@@ -75,7 +76,7 @@ public class DeviceController {
         return resp;
     }
 
-    @GetMapping ("/allDevices")
+    @GetMapping("/allDevices")
     public ResponseEntity<?> Assign() {
         ResponseEntity<?> resp = null;
         try {
@@ -92,14 +93,12 @@ public class DeviceController {
         return resp;
     }
 
-    @GetMapping ("/getDevice")
-    public ResponseEntity<?> get(@RequestHeader(value = "Authorization")  String header) {
+    @GetMapping("/getDevices/{id}")
+    public ResponseEntity<?> get(@PathVariable String id) {
         ResponseEntity<?> resp = null;
-        Claims n = util.getClaims(header.substring(7));
-
         try {
-            List<UserDevices> device1 = deviceService.getAll();
-            resp = new ResponseEntity<List<UserDevices>>(device1, HttpStatus.OK);
+            List<DeviceUserDTO> device1 = deviceService.getAssignedDevices(id);
+            resp = new ResponseEntity<List<DeviceUserDTO>>(device1, HttpStatus.OK);
         } catch (NotFoundException nfe) {
             throw nfe;
         } catch (Exception e) {
@@ -110,8 +109,6 @@ public class DeviceController {
         }
         return resp;
     }
-
-
 
 
 }

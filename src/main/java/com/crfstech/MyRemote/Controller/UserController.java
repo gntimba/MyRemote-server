@@ -67,6 +67,6 @@ public class UserController {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 request.getUsername(), request.getPassword()));
         String token = util.generateToken(request.getUsername());
-        return ResponseEntity.ok(new UserResponse(token, "Token generated successfully!"));
+        return ResponseEntity.ok(new UserResponse(token, "Token generated successfully!",service.findByemail(request.getUsername()).get()));
     }
 }
