@@ -5,6 +5,7 @@ import com.crfstech.MyRemote.Exception.NotFoundException;
 import com.crfstech.MyRemote.Service.DeviceService;
 import com.crfstech.MyRemote.persistence.entity.Device.Device;
 import com.crfstech.MyRemote.persistence.entity.Device.UserDevices;
+import com.crfstech.MyRemote.persistence.entity.Device.compositeKey;
 import com.crfstech.MyRemote.security.JWTUtil;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,7 @@ public class DeviceController {
     public ResponseEntity<?> Assign(@RequestBody UserDevices d) {
         ResponseEntity<?> resp = null;
         try {
+            d.setId( new compositeKey(d.getUser().getId(),d.getDevice().getId()));
             Optional<UserDevices> device1 = deviceService.Assign(d);
             resp = new ResponseEntity<Optional<UserDevices>>(device1, HttpStatus.OK);
         } catch (NotFoundException nfe) {

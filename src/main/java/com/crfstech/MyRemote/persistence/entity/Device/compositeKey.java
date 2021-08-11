@@ -14,4 +14,12 @@ public class compositeKey implements Serializable {
      String userID;
     @JoinColumn(name = "devices_id",columnDefinition="uniqueidentifier")
      String deviceID;
+
+    public compositeKey(String userID, String deviceID) {
+        this.userID = userID;
+        this.deviceID = deviceID;
+    }
+
+    public compositeKey() {
+    }
 }

@@ -14,10 +14,8 @@ import java.io.Serializable;
 @Table(name = "users_devices")
 @Data
 public class UserDevices implements Serializable {
-    @JsonIgnore
     @EmbeddedId
     compositeKey id;
-    @JsonIgnore
     @ManyToOne
     @MapsId("userID")
     @JoinColumn(name = "user_id", columnDefinition = "uniqueidentifier")
