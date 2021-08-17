@@ -1,9 +1,10 @@
 package com.crfstech.MyRemote.Service;
 
 
-
 import ClickAtell.ClickatellRest;
 import com.clickatell.platform.data.Message;
+import com.crfstech.MyRemote.DTO.smsDTO;
+import com.crfstech.MyRemote.security.CryptoUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -13,18 +14,15 @@ public class Clickatell {
     @Value("${app.APIKey}")
     private String API;
 
-
-
-
-
-    public String sendMessage(){
+    public smsDTO sendMessage(smsDTO sms) {
         try {
-            ClickatellRest  clickRest = new ClickatellRest (API);
-            Message [] response = clickRest.sendMessage("testing message", "fff277646878700");
-          return   response[0].getStatus();
-        }catch (Exception e){
+            ClickatellRest clickRest = new ClickatellRest(API);
+            Message[] response = clickRest.sendMessage(sms.getCommand(), CryptoUtil.decrypt(sms.getPhone()));
+
+            return new smsDTO(response[0].getMessage_id());
+        } catch (Exception e) {
             e.printStackTrace();
-            return e.getMessage();
+            return new smsDTO(e.getMessage());
         }
     }
 

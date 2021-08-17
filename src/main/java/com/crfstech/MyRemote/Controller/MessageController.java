@@ -1,5 +1,6 @@
 package com.crfstech.MyRemote.Controller;
 
+import com.crfstech.MyRemote.DTO.smsDTO;
 import com.crfstech.MyRemote.Exception.NotFoundException;
 import com.crfstech.MyRemote.Service.Clickatell;
 import com.crfstech.MyRemote.persistence.entity.Device.Device;
@@ -21,11 +22,11 @@ public class MessageController {
     Clickatell clickatell;
 
     @PostMapping("/send")
-    public ResponseEntity<?> sendSMS() {
+    public ResponseEntity<?> sendSMS(@RequestBody smsDTO sms ) {
         ResponseEntity<?> resp = null;
         try {
 
-            resp = new ResponseEntity<>(  clickatell.sendMessage(), HttpStatus.OK);
+            resp = new ResponseEntity<>(  clickatell.sendMessage(sms), HttpStatus.OK);
         } catch (NotFoundException nfe) {
             throw nfe;
         } catch (Exception e) {
