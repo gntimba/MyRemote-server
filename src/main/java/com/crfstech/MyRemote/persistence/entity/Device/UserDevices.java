@@ -27,4 +27,5 @@ public class UserDevices implements Serializable {
     private Device device;
 
     private String phone;
+    private String customName;
 }

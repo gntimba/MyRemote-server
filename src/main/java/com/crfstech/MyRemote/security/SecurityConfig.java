@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()    //Disabling CSRF as not using form based login
                 .authorizeRequests()
-                .antMatchers("/signup", "/login").permitAll()
+                .antMatchers("/signup", "/login","/images/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling()

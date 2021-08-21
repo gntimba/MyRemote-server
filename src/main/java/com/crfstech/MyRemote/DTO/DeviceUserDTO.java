@@ -9,13 +9,15 @@ import java.io.Serializable;
 @Data
 public class DeviceUserDTO implements Serializable {
 
-    Device device;
-    String phone;
+    private Device device;
+    private String phone;
+    private String customName;
 
 
-    public DeviceUserDTO(Device device, String phone) {
+    public DeviceUserDTO(Device device, String phone, String customName) {
         this.device = device;
         this.phone = CryptoUtil.encrypt(phone);
+       this.customName = customName;
     }
 
     public DeviceUserDTO() {

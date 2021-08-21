@@ -15,9 +15,6 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Device extends baseTable implements Serializable {
-
-    private String customName;
-
     private String model;
 
     private String description;

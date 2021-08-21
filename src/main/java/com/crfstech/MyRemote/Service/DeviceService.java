@@ -49,7 +49,7 @@ public class DeviceService {
         List<DeviceUserDTO> dto = new ArrayList<>();
         if (!userDevices.isEmpty()) {
             for (UserDevices d : userDevices) {
-                dto.add(new DeviceUserDTO(d.getDevice(), d.getPhone()));
+                dto.add(new DeviceUserDTO(d.getDevice(), d.getPhone(),d.getCustomName()));
             }
             return dto;
         } else throw new NotFoundException();
