@@ -15,18 +15,16 @@ configurations {
 }
 
 jar {
-	manifest {
-		attributes(
-				'Start-Class': 'com.crfstech.MyRemote.MyRemoteApplication'
-		)
-	}
+	jar.enabled = false
 }
 
-bootJar {
-	manifest {
-		attributes 'Start-Class': 'com.crfstech.MyRemote.MyRemoteApplication'
-	}
-}
+
+
+//bootJar {
+//	manifest {
+//		attributes 'Start-Class': 'com.crfstech.MyRemote.MyRemoteApplication'
+//	}
+//}
 
 repositories {
 	mavenCentral()
