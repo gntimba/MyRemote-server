@@ -17,8 +17,14 @@ configurations {
 jar {
 	manifest {
 		attributes(
-				'Main-Class': 'com.crfstech.MyRemote.MyRemoteApplication'
+				'Start-Class': 'com.crfstech.MyRemote.MyRemoteApplication'
 		)
+	}
+}
+
+bootJar {
+	manifest {
+		attributes 'Start-Class': 'com.crfstech.MyRemote.MyRemoteApplication'
 	}
 }
 
