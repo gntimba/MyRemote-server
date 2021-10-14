@@ -1,5 +1,6 @@
 package com.crfstech.MyRemote.Service;
 
+import com.crfstech.MyRemote.DTO.userDTO;
 import com.crfstech.MyRemote.model.ROLE;
 import com.crfstech.MyRemote.persistence.Dao.UsersDao;
 import com.crfstech.MyRemote.persistence.entity.User;
@@ -27,30 +28,34 @@ public class UserService implements UserDetailsService {
     private BCryptPasswordEncoder bCryptEncoder;
 
     @Transactional
-    public String save(User user){
-        user.setPassword(bCryptEncoder.encode(user.getPassword()));
+    public String save(userDTO user) {
+
+        User newUser = new User(user);
+
+
+        newUser.setPassword(bCryptEncoder.encode(user.getPassword()));
         Set<ROLE> roles = new HashSet<>();
         roles.add(ROLE.APP);
         roles.add(ROLE.USER);
-        user.setRoles(roles);
-       return usersDao.save(user).getId();
+        newUser.setRoles(roles);
+        return usersDao.save(newUser).getId();
     }
 
-    public Optional<User> findById(String id){
-        Optional<User> Opuser=  usersDao.findById(id);
-        if(Opuser.isPresent()){
+    public Optional<User> findById(String id) {
+        Optional<User> Opuser = usersDao.findById(id);
+        if (Opuser.isPresent()) {
             Opuser.get().setPassword(null);
         }
         return Opuser;
     }
-    public Optional<User> findByemail(String email){
-      Optional<User> Opuser=  usersDao.findByEmail(email);
-      if(Opuser.isPresent()){
-          Opuser.get().setPassword(null);
-      }
-      return Opuser;
-    }
 
+    public Optional<User> findByemail(String email) {
+        Optional<User> Opuser = usersDao.findByEmail(email);
+        if (Opuser.isPresent()) {
+            Opuser.get().setPassword(null);
+        }
+        return Opuser;
+    }
 
 
     @Override
@@ -59,22 +64,22 @@ public class UserService implements UserDetailsService {
 
         opt.get();
 
-        org.springframework.security.core.userdetails.User springUser=null;
+        org.springframework.security.core.userdetails.User springUser = null;
 
-        if(opt.isEmpty()) {
-            throw new UsernameNotFoundException("User with username: " +username +" not found");
-        }else {
-            User user =opt.get();	//retrieving user from DB
+        if (opt.isEmpty()) {
+            throw new UsernameNotFoundException("User with username: " + username + " not found");
+        } else {
+            User user = opt.get();    //retrieving user from DB
             Set<ROLE> roles = user.getRoles();
             Set<GrantedAuthority> ga = new HashSet<>();
-            for(ROLE role:roles) {
+            for (ROLE role : roles) {
                 ga.add(new SimpleGrantedAuthority(role.toString()));
             }
 
             springUser = new org.springframework.security.core.userdetails.User(
                     username,
                     user.getPassword(),
-                    ga );
+                    ga);
         }
 
         return springUser;

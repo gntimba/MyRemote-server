@@ -1,5 +1,6 @@
 package com.crfstech.MyRemote.persistence.entity;
 
+import com.crfstech.MyRemote.DTO.userDTO;
 import com.crfstech.MyRemote.model.ROLE;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -38,5 +39,15 @@ public class User extends baseTable implements Serializable {
     public User(String id) {
         this.setId(id);
     }
-    public User(){}
+
+    public User(userDTO user) {
+        this.dob = user.getDob();
+        this.email = user.getEmail();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.phoneNumber =user.getPhoneNumber();
+    }
+
+    public User() {
+    }
 }

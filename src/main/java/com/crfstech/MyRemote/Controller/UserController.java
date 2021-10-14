@@ -1,5 +1,6 @@
 package com.crfstech.MyRemote.Controller;
 
+import com.crfstech.MyRemote.DTO.userDTO;
 import com.crfstech.MyRemote.Exception.NotFoundException;
 import com.crfstech.MyRemote.Service.UserService;
 import com.crfstech.MyRemote.persistence.entity.User;
@@ -27,7 +28,7 @@ public class UserController {
     private AuthenticationManager authenticationManager;
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody User user) {
+    public ResponseEntity<String> signup(@RequestBody userDTO user) {
         ResponseEntity<String> resp = null;
         try {
             String id = service.save(user);
@@ -37,7 +38,7 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
             resp = new ResponseEntity<String>(
-                    "Unable to save Invoice",
+                    "Unable to save User",
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return resp;
