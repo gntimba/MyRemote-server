@@ -5,8 +5,10 @@ import com.crfstech.MyRemote.model.ROLE;
 import com.crfstech.MyRemote.persistence.Dao.UsersDao;
 import com.crfstech.MyRemote.persistence.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -40,6 +42,11 @@ public class UserService implements UserDetailsService {
         newUser.setRoles(roles);
         return usersDao.save(newUser).getId();
     }
+    public Optional<User> getAuthenticatedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        return usersDao.findByEmail(currentPrincipalName);
+}
 
     public Optional<User> findById(String id) {
         Optional<User> Opuser = usersDao.findById(id);

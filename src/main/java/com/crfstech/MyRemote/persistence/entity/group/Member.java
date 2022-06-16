@@ -18,6 +18,7 @@ public class Member extends baseTable implements Serializable {
     private String phone;
     private String email;
     private String whatsappNo;
+    private String userId;
     @Enumerated(EnumType.STRING)
     private SendMethod sendMethod = SendMethod.SMS;
 }

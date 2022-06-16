@@ -16,6 +16,7 @@ import java.util.List;
 public class Group extends baseTable implements Serializable {
     private String name;
     private String description;
+    private String userId;
     @OneToMany(targetEntity = Member.class, cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Member> members;
