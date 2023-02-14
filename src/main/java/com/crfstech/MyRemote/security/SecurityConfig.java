@@ -86,6 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .csrf().disable()    //Disabling CSRF as not using form based login
+                .cors().and()
                 .authorizeRequests()
                 .antMatchers("/signup", "/login","/images/**","/swagger-ui/**"
                 ,"/swagger-resources/**","/v2/**").permitAll()
