@@ -3,10 +3,10 @@ package com.crfstech.MyRemote.persistence.entity.Device;
 
 import com.crfstech.MyRemote.model.TYPE;
 import com.crfstech.MyRemote.persistence.entity.baseTable;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 

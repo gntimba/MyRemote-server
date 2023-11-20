@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -18,12 +18,12 @@ public class UserDevices implements Serializable {
     compositeKey id;
     @ManyToOne
     @MapsId("userID")
-    @JoinColumn(name = "user_id", columnDefinition = "uniqueidentifier")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
     @MapsId("deviceID")
-    @JoinColumn(name = "devices_id", columnDefinition = "uniqueidentifier")
+    @JoinColumn(name = "devices_id")
     private Device device;
 
     private String phone;

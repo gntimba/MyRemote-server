@@ -8,6 +8,7 @@ import com.crfstech.MyRemote.Service.GroupService;
 import com.crfstech.MyRemote.persistence.entity.Device.UserDevices;
 import com.crfstech.MyRemote.persistence.entity.group.Group;
 import com.crfstech.MyRemote.persistence.entity.group.Member;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("group")
 @CrossOrigin
+@SecurityRequirement(name = "Bearer Authentication")
 public class GroupController {
 
     @Autowired

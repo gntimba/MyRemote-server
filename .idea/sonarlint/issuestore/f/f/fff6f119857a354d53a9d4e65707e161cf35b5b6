@@ -1,14 +1,0 @@
-
-z
-java:S1149O"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(Ôô¡Óüÿÿÿÿ
-E
-java:S2093/"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ
->
-java:S1068"(Remove this unused "POST" private field.(Š€ùô
-D
-java:S1068")Remove this unused "token" private field.(°É©ñÿÿÿÿÿ
-2
-java:S1643#"Use a StringBuilder instead.(Ö‹‰
-x
-java:S1488X"]Immediately return this expression instead of assigning it to the temporary variable "var11".(Ø›“‹øÿÿÿÿ
-o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Äõ‹§
