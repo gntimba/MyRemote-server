@@ -3,8 +3,8 @@ package com.crfstech.MyRemote.DTO;
 import com.crfstech.MyRemote.persistence.entity.group.SendMethod;
 import lombok.Data;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import java.io.Serializable;
 @Data
 public class MemberDTO implements Serializable {

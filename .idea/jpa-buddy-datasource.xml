@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="JpbDataSourceConfig">
-    <data-sources>
-      <data-source id="bc43fbf3-ba6f-4ce8-a9ee-724d8991898a" name="IOTapp" url="jdbc:sqlserver://localhost;databaseName=IOTapp" driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
-    </data-sources>
-  </component>
-</project>

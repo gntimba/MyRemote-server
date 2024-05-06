@@ -5,6 +5,7 @@ import com.crfstech.MyRemote.model.ROLE;
 import com.crfstech.MyRemote.persistence.Dao.UsersDao;
 import com.crfstech.MyRemote.persistence.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -27,7 +28,7 @@ public class UserService implements UserDetailsService {
     UsersDao usersDao;
 
     @Autowired
-    private BCryptPasswordEncoder bCryptEncoder;
+    private @Lazy BCryptPasswordEncoder bCryptEncoder;
 
     @Transactional
     public String save(userDTO user) {

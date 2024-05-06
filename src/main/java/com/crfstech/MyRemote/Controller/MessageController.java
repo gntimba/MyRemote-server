@@ -4,6 +4,7 @@ import com.crfstech.MyRemote.DTO.smsDTO;
 import com.crfstech.MyRemote.Exception.NotFoundException;
 import com.crfstech.MyRemote.Service.Clickatell;
 import com.crfstech.MyRemote.persistence.entity.Device.Device;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
+@SecurityRequirement(name = "Bearer Authentication")
 @RequestMapping("sms")
 public class MessageController {
 

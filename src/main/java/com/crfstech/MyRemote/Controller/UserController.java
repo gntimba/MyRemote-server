@@ -7,6 +7,7 @@ import com.crfstech.MyRemote.persistence.entity.User;
 import com.crfstech.MyRemote.model.UserRequest;
 import com.crfstech.MyRemote.model.UserResponse;
 import com.crfstech.MyRemote.security.JWTUtil;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +44,7 @@ public class UserController {
         }
         return resp;
     }
-
+    @SecurityRequirement(name = "Bearer Authentication")
     @GetMapping("/find/{id}")
     public ResponseEntity<?> getUser(@PathVariable String id) {
         ResponseEntity<?> resp = null;

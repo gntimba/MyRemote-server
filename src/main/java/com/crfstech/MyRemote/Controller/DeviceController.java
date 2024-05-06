@@ -7,7 +7,7 @@ import com.crfstech.MyRemote.persistence.entity.Device.Device;
 import com.crfstech.MyRemote.persistence.entity.Device.UserDevices;
 import com.crfstech.MyRemote.persistence.entity.Device.compositeKey;
 import com.crfstech.MyRemote.security.JWTUtil;
-import io.jsonwebtoken.Claims;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("device")
+@SecurityRequirement(name = "Bearer Authentication")
 public class DeviceController {
 
     @Autowired

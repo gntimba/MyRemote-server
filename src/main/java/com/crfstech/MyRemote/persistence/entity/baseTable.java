@@ -1,9 +1,10 @@
 package com.crfstech.MyRemote.persistence.entity;
 
+
+import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.envers.Audited;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
@@ -11,9 +12,7 @@ import java.util.UUID;
 @Audited
 public class baseTable extends AuditModel implements Serializable {
     @Id
-    @GenericGenerator(name = "generator", strategy = "guid", parameters = {})
-    @GeneratedValue(generator = "generator")
-    @Column(name = "id" , columnDefinition="uniqueidentifier")
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private boolean active = true;
 
