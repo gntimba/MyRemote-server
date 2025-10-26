@@ -15,6 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,19 +30,14 @@ public class UserController {
     private AuthenticationManager authenticationManager;
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody userDTO user) {
-        ResponseEntity<String> resp = null;
-        try {
+    public ResponseEntity<List<String>> signup(@RequestBody userDTO user) {
+        ResponseEntity<List<String>> resp = null;
+
             String id = service.save(user);
-            resp = new ResponseEntity<String>(
-                    "USer with  '" + id + "' created", HttpStatus.CREATED
+            resp = new ResponseEntity<>(
+                    List.of("USer with  '" + id + "' created"), HttpStatus.CREATED
             );
-        } catch (Exception e) {
-            e.printStackTrace();
-            resp = new ResponseEntity<String>(
-                    "Unable to save User",
-                    HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+
         return resp;
     }
     @SecurityRequirement(name = "Bearer Authentication")

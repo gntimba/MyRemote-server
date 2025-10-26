@@ -5,7 +5,7 @@ import com.crfstech.MyRemote.DTO.MemberDTO;
 import com.crfstech.MyRemote.Exception.GroupNotFound;
 import com.crfstech.MyRemote.Exception.MemberNotFound;
 import com.crfstech.MyRemote.Exception.NotFoundException;
-import com.crfstech.MyRemote.Exception.NotUnique;
+import com.crfstech.MyRemote.Exception.UserErrors;
 import com.crfstech.MyRemote.persistence.Dao.GroupDao;
 import com.crfstech.MyRemote.persistence.Dao.MembersDao;
 import com.crfstech.MyRemote.persistence.entity.User;
@@ -13,10 +13,8 @@ import com.crfstech.MyRemote.persistence.entity.group.Group;
 import com.crfstech.MyRemote.persistence.entity.group.Member;
 import com.crfstech.MyRemote.persistence.entity.group.SendMethod;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -36,7 +34,7 @@ public class GroupService {
         User user = userService.getAuthenticatedUser().orElseThrow(NotFoundException::new);
         Group newGroup = new Group();
         if (groupDao.findByNameAndUserId(group.getName(), user.getId()).isPresent())
-            throw new NotUnique("Group with name " + group.getName() + " already exists");
+            throw new UserErrors("Group with name " + group.getName() + " already exists");
         newGroup.setName(group.getName());
         newGroup.setDescription(group.getDescription());
 
@@ -89,7 +87,7 @@ public class GroupService {
         try {
             return groupDao.save(group);
         } catch (Exception e) {
-            throw new NotUnique("Member already assigned to group");
+            throw new UserErrors("Member already assigned to group");
         }
 
     }

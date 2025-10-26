@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.Date;
 
-import static org.springframework.http.HttpStatus.NOT_FOUND;
-
 @RestControllerAdvice
 public class ErrorHandler {
 
@@ -44,13 +42,13 @@ public class ErrorHandler {
                         nfe.getMessage()),
                 HttpStatus.NOT_FOUND);
     }
-    @ExceptionHandler(NotUnique.class)
-    public ResponseEntity<ErrorType> NotUnique(NotUnique nfe){
+    @ExceptionHandler(UserErrors.class)
+    public ResponseEntity<ErrorType> NotUnique(UserErrors nfe){
 
         return new ResponseEntity<ErrorType>(
                 new ErrorType(
                         new Date(System.currentTimeMillis()).toString(),
-                        "400- it exists",
+                        "400",
                         nfe.getMessage()),
                 HttpStatus.BAD_REQUEST);
     }

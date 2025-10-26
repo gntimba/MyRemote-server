@@ -7,7 +7,6 @@ import org.hibernate.envers.Audited;
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.UUID;
 @MappedSuperclass
 @Audited
 public class baseTable extends AuditModel implements Serializable {

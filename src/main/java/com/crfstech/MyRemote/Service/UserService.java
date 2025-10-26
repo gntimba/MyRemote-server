@@ -1,9 +1,12 @@
 package com.crfstech.MyRemote.Service;
 
 import com.crfstech.MyRemote.DTO.userDTO;
+import com.crfstech.MyRemote.Exception.UserErrors;
+import com.crfstech.MyRemote.Util.PasswordValidator;
 import com.crfstech.MyRemote.model.ROLE;
 import com.crfstech.MyRemote.persistence.Dao.UsersDao;
 import com.crfstech.MyRemote.persistence.entity.User;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
@@ -20,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -34,7 +38,23 @@ public class UserService implements UserDetailsService {
     public String save(userDTO user) {
 
         User newUser = new User(user);
+        var isEmailValid = EmailValidator.getInstance().isValid(user.getEmail());
+        if (!isEmailValid)
+            throw new UserErrors("email is invalid");
 
+        var isEmailExist = usersDao.findByEmail(user.getEmail());
+        if (isEmailExist.isPresent())
+            throw new UserErrors("email already exist");
+
+        if ((user.getFirstName() == null || user.getFirstName().isEmpty()) || (user.getLastName() == null || user.getLastName().isEmpty()))
+            throw new UserErrors("Last name or first name must not be empty");
+
+        if(user.getPassword() == null || user.getPassword().isEmpty())
+            throw new UserErrors("Password must not be empty");
+
+        var isPassValid = PasswordValidator.isValidPassword(user.getPassword());
+        if(!isPassValid.isValid())
+            throw new UserErrors(String.join(" ,", isPassValid.errors()));
 
         newUser.setPassword(bCryptEncoder.encode(user.getPassword()));
         Set<ROLE> roles = new HashSet<>();
@@ -43,11 +63,12 @@ public class UserService implements UserDetailsService {
         newUser.setRoles(roles);
         return usersDao.save(newUser).getId();
     }
+
     public Optional<User> getAuthenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         return usersDao.findByEmail(currentPrincipalName);
-}
+    }
 
     public Optional<User> findById(String id) {
         Optional<User> Opuser = usersDao.findById(id);

@@ -1,13 +1,13 @@
 package com.crfstech.MyRemote.Exception;
 
-public class NotUnique extends RuntimeException {
+public class UserErrors extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
-    public NotUnique() {
+    public UserErrors() {
         super();
     }
 
-    public NotUnique(String message) {
+    public UserErrors(String message) {
         super(message);
     }
 
